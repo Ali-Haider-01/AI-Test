@@ -1,26 +1,113 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ==========================================
+   NexusAI Design System - Global Styles
+   ========================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Instrument Sans', var(--font-instrument-sans), Arial, sans-serif;
+  background: #F4F2EE;
+  color: #1C1A16;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.14);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.22);
+}
+
+/* CSS Variables */
+:root {
+  --color-bg: #F4F2EE;
+  --color-bg2: #ECEAE4;
+  --color-white: #FFFFFF;
+  --color-text: #1C1A16;
+  --color-text2: #5A5750;
+  --color-text3: #9E9B93;
+  --color-accent: #C8622A;
+  --color-accent2: #A34D1E;
+  --color-accent-lt: #FDF1EB;
+  --color-blue: #1E4DA8;
+  --color-teal: #0A5E49;
+  --color-amber: #8A5A00;
+  --color-rose: #9B2042;
+
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.04);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.08), 0 6px 20px rgba(0,0,0,0.05);
+  --shadow-lg: 0 4px 12px rgba(0,0,0,0.09), 0 8px 24px rgba(0,0,0,0.06);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Syne', var(--font-syne), Arial, sans-serif;
+  line-height: 1.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid #C8622A;
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background: rgba(200, 98, 42, 0.2);
+  color: #1C1A16;
+}
+
+/* Utility classes */
+.font-syne {
+  font-family: 'Syne', var(--font-syne), Arial, sans-serif;
+}
+
+.font-instrument {
+  font-family: 'Instrument Sans', var(--font-instrument-sans), Arial, sans-serif;
+}
+
+/* Remove Next.js default dark theme */
+#__next {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
