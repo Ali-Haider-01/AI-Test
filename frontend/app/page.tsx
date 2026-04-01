@@ -53,12 +53,20 @@ const FOOTER_LINKS = ['Privacy', 'Terms', 'Docs', 'Blog', 'Contact'];
 
 export default function HomePage() {
   return (
-    <div style={{ minHeight: '100vh', background: '#F4F2EE', fontFamily: "'Instrument Sans', Arial, sans-serif" }}>
+    <div style={{
+      minHeight: '100vh',
+      width: '100%',
+      maxWidth: '100vw',
+      overflowX: 'hidden',
+      background: '#F4F2EE',
+      fontFamily: "'Instrument Sans', Arial, sans-serif",
+      color: '#1C1A16',
+    }}>
       <Navbar />
 
       {/* Hero Section */}
       <section style={{ padding: '80px 24px 64px', textAlign: 'center' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '1080px', width: '92%', margin: '0 auto' }}>
           {/* Eyebrow badge */}
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#FDF1EB', border: '1px solid rgba(200,98,42,0.2)', borderRadius: '20px', padding: '6px 14px', marginBottom: '28px' }}>
             <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#22c55e', display: 'inline-block', boxShadow: '0 0 0 3px rgba(34,197,94,0.2)' }} />
@@ -116,7 +124,7 @@ export default function HomePage() {
 
       {/* Features Section */}
       <section style={{ padding: '24px 24px 80px' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '1080px', width: '92%', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '48px' }}>
             <h2 style={{
               fontFamily: "'Syne', Arial, sans-serif",
@@ -194,7 +202,7 @@ export default function HomePage() {
 
       {/* CTA Section */}
       <section style={{ background: '#ECEAE4', borderTop: '1px solid rgba(28,26,22,0.07)', borderBottom: '1px solid rgba(28,26,22,0.07)', padding: '72px 24px', textAlign: 'center' }}>
-        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '820px', width:'92%', margin: '0 auto' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#FDF1EB', border: '1px solid rgba(200,98,42,0.2)', borderRadius: '20px', padding: '5px 12px', marginBottom: '20px' }}>
             <span style={{ fontSize: '12px', fontWeight: 600, color: '#C8622A' }}>FREE TO START</span>
           </div>
