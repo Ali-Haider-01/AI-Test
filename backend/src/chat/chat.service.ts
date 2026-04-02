@@ -41,10 +41,18 @@ export class ChatService {
     const kimiKey = process.env.KIMI_API_KEY;
     if (kimiKey) {
       try {
+        // Map NexusAI model IDs to Moonshot model slugs.
+        // Extend this map as more provider keys are added.
+        const MOONSHOT_MODELS: Record<string, string> = {
+          'moonshot-v1-8k': 'moonshot-v1-8k',
+          'moonshot-v1-32k': 'moonshot-v1-32k',
+          'moonshot-v1-128k': 'moonshot-v1-128k',
+        };
+        const moonshotModel = MOONSHOT_MODELS[modelId] ?? 'moonshot-v1-8k';
         const res = await fetch('https://api.moonshot.cn/v1/chat/completions', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${kimiKey}` },
-          body: JSON.stringify({ model: 'moonshot-v1-8k', messages: [{ role: 'user', content: message }] }),
+          body: JSON.stringify({ model: moonshotModel, messages: [{ role: 'user', content: message }] }),
         });
         const data = await res.json() as any;
         return data.choices?.[0]?.message?.content || this.mockResponse(message, modelId);

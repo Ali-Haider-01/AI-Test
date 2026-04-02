@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   List,
@@ -11,6 +11,10 @@ import {
   Typography,
   Button,
   Divider,
+  Drawer,
+  IconButton,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import {
   GridView as OverviewIcon,
@@ -18,6 +22,7 @@ import {
   Settings as SettingsIcon,
   CreditCard as BillingIcon,
   Logout as LogoutIcon,
+  Menu as MenuIcon,
 } from '@mui/icons-material';
 import { useRouter, usePathname } from 'next/navigation';
 import { useSelector, useDispatch } from 'react-redux';
@@ -48,11 +53,125 @@ interface DashboardLayoutProps {
   children: React.ReactNode;
 }
 
-export default function DashboardLayout({ children }: DashboardLayoutProps) {
+function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   const router = useRouter();
   const pathname = usePathname();
   const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    localStorage.removeItem('nexusai_token');
+    localStorage.removeItem('nexusai_user');
+    dispatch(clearAuth());
+    router.push('/auth/login');
+  };
+
+  return (
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      {/* Logo */}
+      <Box sx={{ px: 2.5, py: 3, display: 'flex', alignItems: 'center', gap: 1.5 }}>
+        <Box
+          sx={{
+            width: 32,
+            height: 32,
+            borderRadius: 1.5,
+            bgcolor: COLORS.accent,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}
+        >
+          <Typography
+            sx={{ color: '#fff', fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 16, lineHeight: 1 }}
+          >
+            N
+          </Typography>
+        </Box>
+        <Typography
+          sx={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 18, color: COLORS.text, letterSpacing: '-0.3px' }}
+        >
+          NexusAI
+        </Typography>
+      </Box>
+
+      <Divider sx={{ borderColor: '#E0DDD6' }} />
+
+      {/* Nav */}
+      <Box sx={{ flex: 1, py: 1.5, overflowY: 'auto' }}>
+        <List disablePadding>
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <ListItem key={item.href} disablePadding sx={{ px: 1.5, mb: 0.5 }}>
+                <ListItemButton
+                  onClick={() => {
+                    router.push(item.href);
+                    onNavigate?.();
+                  }}
+                  sx={{
+                    borderRadius: 2,
+                    py: 1,
+                    px: 1.5,
+                    bgcolor: isActive ? COLORS.accentLt : 'transparent',
+                    color: isActive ? COLORS.accent : COLORS.text2,
+                    '&:hover': {
+                      bgcolor: isActive ? COLORS.accentLt : COLORS.bg,
+                    },
+                  }}
+                >
+                  <ListItemIcon sx={{ minWidth: 34, color: isActive ? COLORS.accent : COLORS.text3 }}>
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={item.label}
+                    primaryTypographyProps={{
+                      fontFamily: "'Instrument Sans', sans-serif",
+                      fontSize: 14,
+                      fontWeight: isActive ? 600 : 500,
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            );
+          })}
+        </List>
+      </Box>
+
+      <Divider sx={{ borderColor: '#E0DDD6' }} />
+
+      {/* Logout */}
+      <Box sx={{ p: 2 }}>
+        <Button
+          fullWidth
+          startIcon={<LogoutIcon fontSize="small" />}
+          onClick={handleLogout}
+          sx={{
+            justifyContent: 'flex-start',
+            color: COLORS.text2,
+            fontFamily: "'Instrument Sans', sans-serif",
+            fontWeight: 500,
+            fontSize: 14,
+            textTransform: 'none',
+            borderRadius: 2,
+            py: 1,
+            px: 1.5,
+            '&:hover': { bgcolor: COLORS.bg, color: COLORS.text },
+          }}
+        >
+          Logout
+        </Button>
+      </Box>
+    </Box>
+  );
+}
+
+export default function DashboardLayout({ children }: DashboardLayoutProps) {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     if (!isAuthenticated && typeof window !== 'undefined') {
@@ -63,141 +182,88 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     }
   }, [isAuthenticated, router]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('nexusai_token');
-    localStorage.removeItem('nexusai_user');
-    dispatch(clearAuth());
-    router.push('/auth/login');
-  };
-
   if (!isAuthenticated) return null;
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: COLORS.bg }}>
-      {/* Sidebar */}
-      <Box
+      {/* Desktop sidebar */}
+      {!isMobile && (
+        <Box
+          component="nav"
+          sx={{
+            width: SIDEBAR_WIDTH,
+            minWidth: SIDEBAR_WIDTH,
+            bgcolor: COLORS.white,
+            borderRight: '1px solid #E0DDD6',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            height: '100vh',
+            zIndex: 100,
+          }}
+        >
+          <SidebarContent />
+        </Box>
+      )}
+
+      {/* Mobile drawer */}
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+        ModalProps={{ keepMounted: true }}
         sx={{
-          width: SIDEBAR_WIDTH,
-          minWidth: SIDEBAR_WIDTH,
-          bgcolor: COLORS.white,
-          borderRight: '1px solid #E0DDD6',
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          height: '100vh',
-          zIndex: 100,
+          display: { xs: 'block', md: 'none' },
+          '& .MuiDrawer-paper': {
+            width: SIDEBAR_WIDTH,
+            bgcolor: COLORS.white,
+            borderRight: '1px solid #E0DDD6',
+          },
         }}
       >
-        {/* Logo */}
-        <Box sx={{ px: 2.5, py: 3, display: 'flex', alignItems: 'center', gap: 1.5 }}>
-          <Box
-            sx={{
-              width: 32,
-              height: 32,
-              borderRadius: 1.5,
-              bgcolor: COLORS.accent,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-            }}
-          >
-            <Typography
-              sx={{ color: '#fff', fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 16, lineHeight: 1 }}
-            >
-              N
-            </Typography>
-          </Box>
-          <Typography
-            sx={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 18, color: COLORS.text, letterSpacing: '-0.3px' }}
-          >
-            NexusAI
-          </Typography>
-        </Box>
-
-        <Divider sx={{ borderColor: '#E0DDD6' }} />
-
-        {/* Nav */}
-        <Box sx={{ flex: 1, py: 1.5, overflowY: 'auto' }}>
-          <List disablePadding>
-            {navItems.map((item) => {
-              const isActive = pathname === item.href;
-              return (
-                <ListItem key={item.href} disablePadding sx={{ px: 1.5, mb: 0.5 }}>
-                  <ListItemButton
-                    onClick={() => router.push(item.href)}
-                    sx={{
-                      borderRadius: 2,
-                      py: 1,
-                      px: 1.5,
-                      bgcolor: isActive ? COLORS.accentLt : 'transparent',
-                      color: isActive ? COLORS.accent : COLORS.text2,
-                      '&:hover': {
-                        bgcolor: isActive ? COLORS.accentLt : COLORS.bg,
-                      },
-                    }}
-                  >
-                    <ListItemIcon
-                      sx={{
-                        minWidth: 34,
-                        color: isActive ? COLORS.accent : COLORS.text3,
-                      }}
-                    >
-                      {item.icon}
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={item.label}
-                      primaryTypographyProps={{
-                        fontFamily: "'Instrument Sans', sans-serif",
-                        fontSize: 14,
-                        fontWeight: isActive ? 600 : 500,
-                      }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
-          </List>
-        </Box>
-
-        <Divider sx={{ borderColor: '#E0DDD6' }} />
-
-        {/* Logout */}
-        <Box sx={{ p: 2 }}>
-          <Button
-            fullWidth
-            startIcon={<LogoutIcon fontSize="small" />}
-            onClick={handleLogout}
-            sx={{
-              justifyContent: 'flex-start',
-              color: COLORS.text2,
-              fontFamily: "'Instrument Sans', sans-serif",
-              fontWeight: 500,
-              fontSize: 14,
-              textTransform: 'none',
-              borderRadius: 2,
-              py: 1,
-              px: 1.5,
-              '&:hover': { bgcolor: COLORS.bg, color: COLORS.text },
-            }}
-          >
-            Logout
-          </Button>
-        </Box>
-      </Box>
+        <SidebarContent onNavigate={() => setMobileOpen(false)} />
+      </Drawer>
 
       {/* Main content */}
       <Box
         sx={{
           flex: 1,
-          ml: `${SIDEBAR_WIDTH}px`,
+          ml: { xs: 0, md: `${SIDEBAR_WIDTH}px` },
           minHeight: '100vh',
           display: 'flex',
           flexDirection: 'column',
         }}
       >
+        {/* Mobile top bar */}
+        {isMobile && (
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1.5,
+              px: 2,
+              py: 1.5,
+              bgcolor: COLORS.white,
+              borderBottom: '1px solid #E0DDD6',
+              position: 'sticky',
+              top: 0,
+              zIndex: 50,
+            }}
+          >
+            <IconButton
+              onClick={() => setMobileOpen(true)}
+              size="small"
+              aria-label="Open navigation menu"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              sx={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: 16, color: COLORS.text }}
+            >
+              NexusAI
+            </Typography>
+          </Box>
+        )}
         {children}
       </Box>
     </Box>

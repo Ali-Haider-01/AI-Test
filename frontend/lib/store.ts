@@ -34,12 +34,6 @@ const authSlice = createSlice({
       state.token = null;
       state.isAuthenticated = false;
     },
-    // Alias for logout — used in existing components
-    clearAuth(state) {
-      state.user = null;
-      state.token = null;
-      state.isAuthenticated = false;
-    },
   },
 });
 
@@ -138,7 +132,9 @@ export const store = configureStore({
 });
 
 // --- Exports ---
-export const { setAuth, logout, clearAuth } = authSlice.actions;
+export const { setAuth, logout } = authSlice.actions;
+// clearAuth is an alias kept for backward-compat with DashboardLayout
+export const clearAuth = logout;
 export const { setActiveModel, addMessage, setGuestSession, clearChat } =
   chatSlice.actions;
 export const { setModels, setLoading } = modelsSlice.actions;

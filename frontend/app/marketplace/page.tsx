@@ -60,30 +60,10 @@ interface AIModel {
 }
 
 // ── Design System ─────────────────────────────────────────────────────────────
+import { T as DS } from '@/lib/designTokens';
 
-const DS = {
-  bg: '#F4F2EE',
-  bg2: '#ECEAE4',
-  white: '#FFFFFF',
-  text: '#1C1A16',
-  text2: '#5A5750',
-  text3: '#9E9B93',
-  accent: '#C8622A',
-  accentLt: '#FDF1EB',
-  blue: '#1E4DA8',
-};
-
-const COLORS = {
-  bg: '#F4F2EE',
-  bg2: '#ECEAE4',
-  white: '#FFFFFF',
-  text: '#1C1A16',
-  text2: '#5A5750',
-  text3: '#9E9B93',
-  accent: '#C8622A',
-  accentLt: '#FDF1EB',
-  blue: '#1E4DA8',
-};
+// COLORS kept as alias so existing references still compile
+const COLORS = DS;
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 

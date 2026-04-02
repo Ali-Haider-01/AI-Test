@@ -25,7 +25,13 @@ export default function SearchBar() {
 
   return (
     <div style={{ maxWidth: '620px', margin: '0 auto' }}>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '0', background: '#fff', borderRadius: '28px', border: '1.5px solid rgba(28,26,22,0.12)', boxShadow: '0 2px 16px rgba(0,0,0,0.07)', overflow: 'hidden', alignItems: 'center', padding: '6px 6px 6px 20px' }}>
+      <style>{`
+        .nexus-search-input:focus { outline: none; }
+        .nexus-search-form:focus-within { border-color: rgba(200,98,42,0.5) !important; box-shadow: 0 2px 16px rgba(0,0,0,0.07), 0 0 0 3px rgba(200,98,42,0.12) !important; }
+        .nexus-suggestion-pill:hover { background: #D9D6CE !important; }
+        .nexus-search-submit:hover { background: #B5561F !important; }
+      `}</style>
+      <form onSubmit={handleSubmit} className="nexus-search-form" style={{ display: 'flex', gap: '0', background: '#fff', borderRadius: '28px', border: '1.5px solid rgba(28,26,22,0.12)', boxShadow: '0 2px 16px rgba(0,0,0,0.07)', overflow: 'hidden', alignItems: 'center', padding: '6px 6px 6px 20px', transition: 'border-color 0.15s, box-shadow 0.15s' }}>
         <svg
           width="18"
           height="18"
@@ -46,10 +52,10 @@ export default function SearchBar() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Ask any AI model anything..."
+          className="nexus-search-input"
           style={{
             flex: 1,
             border: 'none',
-            outline: 'none',
             background: 'transparent',
             fontFamily: "'Instrument Sans', Arial, sans-serif",
             fontSize: '15px',
@@ -60,6 +66,7 @@ export default function SearchBar() {
         />
         <button
           type="submit"
+          className="nexus-search-submit"
           style={{
             background: '#C8622A',
             color: '#fff',
@@ -90,6 +97,7 @@ export default function SearchBar() {
               setQuery(s);
               router.push(`/chat?q=${encodeURIComponent(s)}`);
             }}
+            className="nexus-suggestion-pill"
             style={{
               background: '#ECEAE4',
               border: 'none',

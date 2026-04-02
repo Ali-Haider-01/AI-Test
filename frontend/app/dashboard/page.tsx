@@ -45,12 +45,12 @@ const COLORS = {
 const DEFAULT_STATS = [
   { label: 'Total Chats', value: '0', icon: <ChatIcon />, color: '#1E4DA8', bg: '#EEF2FB' },
   { label: 'Models Used', value: '0', icon: <ModelIcon />, color: '#C8622A', bg: '#FDF1EB' },
-  { label: 'API Calls', value: '0', icon: <ApiIcon />, color: '#2E7D32', bg: '#EDF7EE' },
-  { label: 'Cost This Month', value: '$0.00', icon: <CostIcon />, color: '#7B3FA0', bg: '#F5EDF9' },
+  { label: 'API Calls', value: '0', icon: <ApiIcon />, color: '#0A5E49', bg: '#E8F3F0' },
+  { label: 'Cost This Month', value: '$0.00', icon: <CostIcon />, color: '#8A5A00', bg: '#FDF6E3' },
 ];
 
 const DEFAULT_SESSION = [
-  { id: 1, model: 'GPT-4o', preview: 'No activity yet', date: new Date().toLocaleString(), messages: 0 },
+  { id: 1, model: 'GPT-4o', preview: 'No activity yet', date: '—', messages: 0 },
 ];
 
 const favoriteModels = [
@@ -66,7 +66,7 @@ const quickActions = [
 ];
 
 export default function DashboardPage() {
-  const { user } = useSelector((state: RootState) => state.auth) as { user: { name?: string } | null };
+  const { user } = useSelector((state: RootState) => state.auth);
   const [today, setToday] = useState('');
   useEffect(() => {
     setToday(new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }));
@@ -89,8 +89,8 @@ export default function DashboardPage() {
         setStats([
           { label: 'Total Chats', value: `${serverStats.totalChats}`, icon: <ChatIcon />, color: '#1E4DA8', bg: '#EEF2FB' },
           { label: 'Models Used', value: `${serverStats.modelsUsed}`, icon: <ModelIcon />, color: '#C8622A', bg: '#FDF1EB' },
-          { label: 'API Calls', value: `${serverStats.apiCalls}`, icon: <ApiIcon />, color: '#2E7D32', bg: '#EDF7EE' },
-          { label: 'Cost This Month', value: `$${serverStats.costThisMonth.toFixed(2)}`, icon: <CostIcon />, color: '#7B3FA0', bg: '#F5EDF9' },
+          { label: 'API Calls', value: `${serverStats.apiCalls}`, icon: <ApiIcon />, color: '#0A5E49', bg: '#E8F3F0' },
+          { label: 'Cost This Month', value: `$${serverStats.costThisMonth.toFixed(2)}`, icon: <CostIcon />, color: '#8A5A00', bg: '#FDF6E3' },
         ]);
 
         setActivity(activityRes.data);
@@ -121,7 +121,7 @@ export default function DashboardPage() {
               letterSpacing: '-0.4px',
             }}
           >
-            Welcome back, {(user as { name?: string } | null)?.name || 'there'}!
+            Welcome back, {user?.name || 'there'}!
           </Typography>
           <Typography sx={{ color: COLORS.text3, fontSize: 14, mt: 0.5 }}>{today}</Typography>
         </Box>

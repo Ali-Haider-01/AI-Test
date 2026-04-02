@@ -200,5 +200,26 @@ export const theme = createTheme({
         },
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          fontFamily: "'Instrument Sans', Arial, sans-serif",
+        },
+      },
+    },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          fontFamily: "'Instrument Sans', Arial, sans-serif",
+        },
+      },
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          fontFamily: "'Instrument Sans', Arial, sans-serif",
+        },
+      },
+    },
   },
 });

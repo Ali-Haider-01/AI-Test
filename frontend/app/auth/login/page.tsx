@@ -15,7 +15,7 @@ import {
   InputAdornment,
   IconButton,
 } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Visibility, VisibilityOff, ArrowBack } from '@mui/icons-material';
 import NextLink from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
@@ -71,17 +71,45 @@ export default function LoginPage() {
   };
 
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        bgcolor: COLORS.bg,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        px: 2,
-        fontFamily: "'Instrument Sans', sans-serif",
-      }}
-    >
+    <Box sx={{ minHeight: '100vh', bgcolor: COLORS.bg }}>
+      {/* Back to home bar */}
+      <Box
+        sx={{
+          px: 3,
+          py: 1.5,
+          display: 'flex',
+          alignItems: 'center',
+          borderBottom: '1px solid rgba(28,26,22,0.08)',
+        }}
+      >
+        <Link
+          component={NextLink}
+          href="/"
+          sx={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 0.75,
+            fontSize: 13,
+            color: COLORS.text2,
+            textDecoration: 'none',
+            fontWeight: 500,
+            '&:hover': { color: COLORS.text },
+          }}
+        >
+          <ArrowBack sx={{ fontSize: 15 }} />
+          Back to NexusAI
+        </Link>
+      </Box>
+
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          px: 2,
+          py: 6,
+        }}
+      >
       <Card
         elevation={0}
         sx={{
@@ -164,8 +192,6 @@ export default function LoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               sx={{ mb: 2 }}
               size="small"
-              InputLabelProps={{ style: { fontFamily: "'Instrument Sans', sans-serif", fontSize: 14 } }}
-              inputProps={{ style: { fontFamily: "'Instrument Sans', sans-serif" } }}
             />
             <TextField
               label="Password"
@@ -175,8 +201,6 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               sx={{ mb: 1 }}
               size="small"
-              InputLabelProps={{ style: { fontFamily: "'Instrument Sans', sans-serif", fontSize: 14 } }}
-              inputProps={{ style: { fontFamily: "'Instrument Sans', sans-serif" } }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -215,12 +239,9 @@ export default function LoginPage() {
               sx={{
                 bgcolor: COLORS.accent,
                 color: COLORS.white,
-                fontFamily: "'Instrument Sans', sans-serif",
                 fontWeight: 600,
                 fontSize: 15,
                 py: 1.3,
-                borderRadius: 2,
-                textTransform: 'none',
                 boxShadow: 'none',
                 '&:hover': { bgcolor: '#B5561F', boxShadow: 'none' },
                 '&:disabled': { bgcolor: '#E0C4B8', color: '#fff' },
@@ -239,12 +260,9 @@ export default function LoginPage() {
             sx={{
               borderColor: '#D5D2CB',
               color: COLORS.text2,
-              fontFamily: "'Instrument Sans', sans-serif",
               fontWeight: 500,
               fontSize: 14,
               py: 1.2,
-              borderRadius: 2,
-              textTransform: 'none',
               bgcolor: 'transparent',
               '&:hover': { bgcolor: '#F4F2EE', borderColor: '#C0BDB5' },
             }}
@@ -269,6 +287,7 @@ export default function LoginPage() {
           </Typography>
         </CardContent>
       </Card>
+      </Box>
     </Box>
   );
 }
