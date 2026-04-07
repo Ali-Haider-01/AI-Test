@@ -147,7 +147,7 @@ const FOOTER_COLS = [
 
 export default function HomePage() {
   return (
-    <div style={{ minHeight: '100vh', background: '#F4F2EE', color: '#1C1A16', fontFamily: "'Instrument Sans', Arial, sans-serif", overflowX: 'hidden' }}>
+    <div style={{ background: '#F4F2EE', color: '#1C1A16', fontFamily: "'Instrument Sans', Arial, sans-serif", overflowX: 'hidden' }}>
       <style>{`
         /* Global resets for this page */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -290,7 +290,7 @@ export default function HomePage() {
             <div style={{ display: 'inline-block', fontSize: '11px', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#C8622A', background: '#FDF1EB', padding: '5px 14px', borderRadius: '999px', marginBottom: '16px' }}>
               Platform
             </div>
-            <h2 style={{ fontFamily: "'Syne', Arial, sans-serif", fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 800, color: '#1C1A16', letterSpacing: '-0.03em', lineHeight: 1.15, marginBottom: '14px' }}>
+            <h2 style={{ fontFamily: "'Syne', Arial, sans-serif", fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', fontWeight: 800, color: '#1C1A16', letterSpacing: '-0.03em', marginBottom: '14px' }}>
               Everything you need to build with AI
             </h2>
             <p style={{ color: '#5A5750', fontSize: '16px', maxWidth: '480px', margin: '0 auto', lineHeight: 1.7 }}>

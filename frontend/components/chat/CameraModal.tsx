@@ -69,7 +69,8 @@ export default function CameraModal({ open, onClose, onCapture }: CameraModalPro
 
   useEffect(() => {
     if (open) {
-      startCamera();
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      void startCamera();
     } else {
       stopStream();
       setCameraState('requesting');

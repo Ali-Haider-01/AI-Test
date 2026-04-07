@@ -17,7 +17,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Divider,
 } from '@mui/material';
 import {
   ArrowForward as ArrowIcon,

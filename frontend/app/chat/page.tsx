@@ -30,7 +30,6 @@ import MicIcon from '@mui/icons-material/Mic';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import AddIcon from '@mui/icons-material/Add';
-import CloseIcon from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
@@ -45,7 +44,6 @@ import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 
 import modelsData from '@/data/models.json';
 import CameraModal from '@/components/chat/CameraModal';
@@ -237,16 +235,8 @@ export default function ChatPage() {
   const [cameraOpen, setCameraOpen] = useState(false);
   const [cpanelTab, setCpanelTab] = useState('Use cases');
   const [cpanelVisible, setCpanelVisible] = useState(true);
-  const [guestBannerDismissed, setGuestBannerDismissed] = useState(false);
-  const [isGuest] = useState(true);
   const [sessionId, setSessionId] = useState('guest');
   const [sparklineData, setSparklineData] = useState<number[]>(DEFAULT_SPARKLINE_DATA);
-  const idRef = useRef(0);
-
-  const generateStableId = (prefix: string) => {
-    idRef.current += 1;
-    return `${prefix}-${idRef.current}`;
-  };
 
   useEffect(() => {
     setSessionId(`guest-${Math.floor(Math.random() * 100000)}`);

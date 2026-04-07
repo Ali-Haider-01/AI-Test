@@ -62,16 +62,19 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Close mobile menu on route change
+  // Close mobile menu on route change — intentional setState in effect
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => { setMobileOpen(false); }, [pathname]);
+
+  // Apply lang/dir to <html> as a DOM side effect (not in event handler)
   useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
+    document.documentElement.dir = selectedLang.dir;
+    document.documentElement.lang = selectedLang.code.toLowerCase();
+  }, [selectedLang]);
 
   function handleSelectLang(lang: Language) {
     setSelectedLang(lang);
     setLangOpen(false);
-    document.documentElement.dir = lang.dir;
-    document.documentElement.lang = lang.code.toLowerCase();
     setLangToast(`Language changed to ${lang.nativeLabel}`);
     setTimeout(() => setLangToast(null), 2500);
   }

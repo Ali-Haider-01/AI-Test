@@ -74,7 +74,7 @@ export default function DashboardPage() {
 
   const [stats, setStats] = useState(DEFAULT_STATS);
   const [activity, setActivity] = useState(DEFAULT_SESSION);
-  const [loadingStats, setLoadingStats] = useState(true);
+  const [, setLoadingStats] = useState(true);
   const [loadingActivity, setLoadingActivity] = useState(true);
 
   useEffect(() => {
@@ -94,7 +94,7 @@ export default function DashboardPage() {
         ]);
 
         setActivity(activityRes.data);
-      } catch (err) {
+      } catch {
         // fallback on static/dummy data when API not reachable or unauthenticated
         setStats(DEFAULT_STATS);
         setActivity(DEFAULT_SESSION);

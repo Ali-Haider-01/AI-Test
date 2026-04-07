@@ -167,7 +167,6 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const router = useRouter();
-  const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));

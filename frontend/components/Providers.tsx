@@ -23,7 +23,7 @@ function AuthInit() {
       try {
         const user = JSON.parse(userData);
         dispatch(setAuth({ user, token }));
-      } catch (e) {
+      } catch {
         localStorage.removeItem('nexusai_token');
         localStorage.removeItem('nexusai_user');
       }

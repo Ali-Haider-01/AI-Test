@@ -22,7 +22,6 @@ import {
   Tooltip,
   Divider,
   Stack,
-  colors,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import GridViewIcon from '@mui/icons-material/GridView';

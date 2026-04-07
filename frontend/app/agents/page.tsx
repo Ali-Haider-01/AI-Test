@@ -19,7 +19,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Avatar,
 } from '@mui/material';
 import {
   Search as SearchIcon,
@@ -28,7 +27,6 @@ import {
   Create as ContentIcon,
   Support as SupportIcon,
   AutoAwesome as AutoIcon,
-  Psychology as PsychIcon,
   PlayArrow as TryIcon,
   Add as AddIcon,
   CheckCircle as SuccessIcon,
